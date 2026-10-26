@@ -1,0 +1,111 @@
+/* basic page */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 20px 24px;
+  background: #f6f6f4;
+  color: #222;
+  font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* header */
+.dq-header h1 { margin: 0 0 2px; font-size: 22px; font-weight: 650; }
+.dq-header p { margin: 0 0 14px; color: #666; }
+
+/* map on the left, panel on the right */
+.dq-body { display: flex; gap: 20px; align-items: flex-start; }
+.dq-map-col { flex: none; }
+
+/* the 3 stacked layers: img, canvas, svg. all same size, all absolutely positioned */
+.dq-stack {
+  position: relative;
+  border: 1px solid #ccc;
+  background: #e8e8e8;
+  overflow: hidden;
+}
+.dq-stack > img, .dq-stack > canvas, .dq-stack > svg {
+  position: absolute; left: 0; top: 0;
+  display: block;
+}
+.dq-stack > img { user-select: none; -webkit-user-drag: none; }
+
+/* svg ignores the mouse except for the query circles themselves */
+.dq-stack > svg { pointer-events: none; overflow: visible; }
+.dq-stack .qc .disk,
+.dq-stack .qc .handle { pointer-events: visiblePainted; cursor: move; }
+.dq-stack .qc.dragging .disk { cursor: grabbing; }
+.dq-stack .qc text { pointer-events: none; user-select: none; }
+
+.dq-note { margin: 6px 0 0; font-size: 12px; color: #777; }
+.dq-error {
+  padding: 16px; border: 1px solid #e0b4b4; background: #fff6f6; color: #9f3a38;
+  border-radius: 6px; max-width: 640px;
+}
+
+/* tooltip */
+.dq-tooltip {
+  position: absolute;
+  pointer-events: none;
+  max-width: 300px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  font-size: 12px;
+  line-height: 1.35;
+  z-index: 10;
+}
+.dq-tooltip .tt-head { font-weight: 600; margin-bottom: 2px; }
+.dq-tooltip .tt-addr { color: #666; margin-bottom: 4px; }
+.dq-tooltip .tt-meta { color: #333; }
+.dq-tooltip .tt-item { padding: 3px 0; border-top: 1px solid #eee; }
+.dq-tooltip .tt-item:first-of-type { border-top: none; }
+.dq-tooltip .tt-item.fail { color: #999; }
+.dq-tooltip .tt-item.fail .tt-meta { color: #aaa; }
+.dq-tooltip .tt-name { font-weight: 600; }
+.dq-tooltip .tt-flag { font-size: 11px; margin-left: 4px; }
+.dq-tooltip .tt-flag.pass { color: #1a7f37; }
+.dq-tooltip .tt-flag.fail { color: #999; }
+.dq-tooltip .tt-more { color: #777; margin-top: 3px; font-style: italic; }
+.swatch {
+  display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 3px; vertical-align: -1px; border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+/* control panel */
+.dq-panel {
+  flex: 1 1 300px;
+  min-width: 280px;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.dq-status { font-size: 15px; margin-bottom: 12px; }
+.dq-status b { font-variant-numeric: tabular-nums; }
+.dq-section { border-top: 1px solid #eee; padding-top: 10px; margin-top: 12px; }
+.dq-section h2 {
+  margin: 0 0 8px; font-size: 12px; font-weight: 650;
+  text-transform: uppercase; letter-spacing: 0.05em; color: #666;
+}
+.dq-control { margin-bottom: 10px; }
+.dq-control label.dq-lbl { display: block; margin-bottom: 2px; }
+.dq-control .val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.dq-control input[type="range"] { width: 100%; margin: 0; }
+.dq-control input[type="text"] {
+  width: 100%; padding: 5px 7px; font: inherit;
+  border: 1px solid #ccc; border-radius: 4px;
+}
+.dq-hint { font-size: 11px; color: #888; margin-top: 2px; }
+
+.dq-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; }
+.dq-checks label { cursor: pointer; white-space: nowrap; }
+.dq-checks .cnt { color: #888; font-size: 12px; }
+
+.dq-reset {
+  margin-top: 14px; width: 100%; padding: 7px; font: inherit;
+  background: #f2f2f2; border: 1px solid #ccc; border-radius: 5px; cursor: pointer;
+}
+.dq-reset:hover { background: #e8e8e8; }
